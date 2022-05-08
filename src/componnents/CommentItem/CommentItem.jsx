@@ -3,7 +3,6 @@ import { FaTimes } from 'react-icons/fa'
 import Card from '../../SharedComponent/Card';
 
 const CommentItem = ({item , handleDelete}) => {
-    console.log(item)
     
     return(
         <div className='container'>

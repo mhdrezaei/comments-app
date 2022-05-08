@@ -3,8 +3,9 @@ import Card from '../../SharedComponent/Card'
 import { useState } from 'react'
 import Button from '../../SharedComponent/Button';
 import CommentRating from '../CommentRating/CommentRating';
-function CommentForm() {
+function CommentForm({handleAddFeedBack}) {
     const [text , setText] = useState('');
+    const [rating , setRating] = useState(10);
     const [errMsg , setErrMsg] = useState('');
     const [haveErr , setHaveErr] = useState(false);
     
@@ -24,22 +25,26 @@ function CommentForm() {
             setErrMsg ("Your comment is too short") ;
             setHaveErr(true);
             return ;
-
         }
-        setErrMsg(false)
-        console.log('sent!')
+
+        const newFeedback = {
+            text,
+            rating
+        }
+        handleAddFeedBack(newFeedback);
+        setText('');
     }
 
     
   return (
       <div className='container'>
     <Card>
-        <form>
+        <form onSubmit={handleSubmit} >
         <h2>Would you like to write Comments?</h2>
-        <CommentRating select={(rating) => { console.log(rating) }} />
+        <CommentRating select={(rating) => {setRating(rating)}} />
         <div className='input-group'>
             <input type='type' onChange={handleText} placeholder='write a comment' value={text} ></input>
-            <Button type='submit'  func={handleSubmit} >Send</Button>
+            <Button type='submit' >Send</Button>
             {/* <button type='submit' onClick={handleSubmit} >send</button> */}
         </div>
         </form>
